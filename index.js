@@ -5,6 +5,7 @@ var Callable = iri.service.CallableRequest;
 var Response = iri.service.dto.IXIResponse;
 var ErrorResponse = iri.service.dto.ErrorResponse;
 var tvm = iri.controllers.TransactionViewModel;
+var spentAddressClass = iri.model.persistables.SpentAddress;
 
 var tangle = IOTA.tangle;
 var snapshotProvider = IOTA.snapshotProvider;
@@ -21,8 +22,8 @@ function persistSpentAddressesAboveLatestMilestone(){
     var transactionsCount = 0;
 
     var snapshot = snapshotProvider.getLatestSnapshot();
-    var milestoneHash = snapshot.getHash();
-    var milestoneIndex = snapshot.getIndex();
+    var milestoneHash = snapshot.getInitialHash();
+    var milestoneIndex = snapshot.getInitialIndex();
 
     var processedTransactions = new Set();
     var validSpends = new Set();
